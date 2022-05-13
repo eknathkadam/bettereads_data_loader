@@ -1,10 +1,14 @@
 package com.webrich.bettereads;
 
-import java.io.File;
 import java.nio.file.Path;
 
-import com.webrich.bettereads.connection.DataStaxAstraProperties;
+import javax.annotation.PostConstruct;
 
+import com.webrich.bettereads.connection.DataStaxAstraProperties;
+import com.webrich.bettereads.model.Author;
+import com.webrich.bettereads.repository.AuthorRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cassandra.CqlSessionBuilderCustomizer;
@@ -15,17 +19,25 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties (DataStaxAstraProperties.class)
 public class BettereadsApplication {
 
+	@Autowired 
+	AuthorRepository authorRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(BettereadsApplication.class, args);
 	}
 
 	@Bean
 	public CqlSessionBuilderCustomizer sessionBuilderCustomizer(DataStaxAstraProperties astraProperties){
-		File f = astraProperties.getSecureConnectBundle();
-		System.out.println("THE FILE IS:"+f);
-		Path bundle = f.toPath();
-		System.out.println("THE FILE PATH IS:"+bundle);
+		Path bundle = astraProperties.getSecureConnectBundle().toPath();
 		return builder->builder.withCloudSecureConnectBundle(bundle);
 	}
 
+	@PostConstruct
+	public void start(){
+		Author author = new Author();
+		author.setId("RandomId");
+		author.setName("RandomName");
+		author.setPersonalName("RandomPersonalName");
+		authorRepository.save(author);
+	}
 }
