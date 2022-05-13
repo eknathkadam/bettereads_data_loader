@@ -4,7 +4,7 @@ spring:
           keyspace-name: main
           username: mMGaQOYciGSgzQLdZCYKIomO
           password: jSFlNcqrcc_LUZrWGxTj3mCM7g4zBCmcvLUy1FIwnQ,51QmYdmArf3ZxqttUIHZl7UezeN_vO,tT4obnQDtexFdzmjU-pU_SGMtbgX-C,MXS5meEUfBLkb.+ZbrltBMd
-          schema-action: create-if-not-exists
+          schema-action: recreate
           request:
             timeout: 10s
           connection:
@@ -19,3 +19,7 @@ astra.db:
         region: asia-south1
         keyspace: main
         application.token: AstraCS:mMGaQOYciGSgzQLdZCYKIomO:827c7747015f5a4a1d1a7e642ccf8eca393346c52e70cd64452f153814580018   
+
+datadump.location:
+          author: /Users/shivam/jworkspace/betterreads-webapp/test-authors.txt
+          works: /Users/shivam/jworkspace/betterreads-webapp/test-works.txt
