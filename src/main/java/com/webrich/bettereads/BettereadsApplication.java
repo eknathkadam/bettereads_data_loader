@@ -147,14 +147,8 @@ public class BettereadsApplication {
 
 	@PostConstruct
 	public void start() {
-		// Author author = new Author();
-		// author.setId("RandomId");
-		// author.setName("RandomName");
-		// author.setPersonalName("RandomPersonalName");
-		// authorRepository.save(author);
-
 		initAuthors();
-		initWorks();
+		//initWorks();
 		System.out.println("DONE DONEDONEDONEDONEDONEDONEDONEDONEDONEDONEDONEDONEDONE");
 
 	}
